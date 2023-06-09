@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+{%block title%}Home{%endblock%}
+{%block nav_link%}<a class="navbar-brand" href="/">Greeb</a>{%endblock%}
+{%block body%}
+{%set i=[]%}
+{%for stream in streams%}
+{%if stream.stream_name not in i %}
+{%set sem_length= semester_checker(stream.stream_name) |int%}
+<p hidden>{{i.append(stream.stream_name)}}</p>
+<!-- i use data-toggle and id is stream.stream_name beacause id and data-toggle must be unique and same -->
+  <button class="btn btn-lg btn-info my-2 mx-2" type="button" data-toggle="collapse" data-target="#{{stream.stream_name}}" aria-expanded="false" aria-controls="{{stream.stream_name}}">
+    {{stream.stream_name}}
+  </button>
+  <div class="collapse" id="{{stream.stream_name}}">
+  <div class="card card-body">
+  	<span>
+      {%for q in range(1,sem_length+1)%}
+      <a href="stream/{{stream.stream_name}}/{{q}}"><button type="button" class="btn btn-success my-1 mx-1">{{q}} Semester</button></a>
+      {%endfor%}
+    </span>
+  </div>
+</div>
+{%endif%}
+{%endfor%}
+{%endblock%}

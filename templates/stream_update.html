@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+{%block title%}stream update {%endblock%}
+{%block nav_link%}<a class="navbar-brand" href="/backend">Greeb</a>{%endblock%}
+{%block body%}
+<h2>Update stream here</h2>
+<form action="/update_stream/{{stream_update.id}}" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <input type="form-text" value="{{stream_update.stream_name}}" class="form-control" placeholder="Update Stream Here" name="stream_update">
+    </div>
+    <div class="form-group">
+      <input type="form-text" value="{{stream_update.subject_name}}" class="form-control" placeholder="Update Subject Here" name="subject_update">
+    </div>
+    <div class="form-group">
+      <input type="form-text" value="{{stream_update.semester}}" class="form-control" placeholder="Update Semester Here" name="semester_update">
+      <small class="mx-3" style="color: rgb(34, 81, 209);">Only Use Integer Values like 1,2,3.. Not 1st,2nd,3rd....</small>
+    </div>
+    <div class="form-group">
+      <input type="form-text" class="form-control" value="{{stream_update.year}}" placeholder="Update Year of Question Paper Here" name="year_update">
+    </div>  
+    <div class="form-group">
+      <input type="file" class="form-control " value="{{stream_update.file_name}}" name="file_name_update">
+    </div>  
+    <button type="submit" class="btn btn-primary">update</button>
+</form> 
+{%endblock%}

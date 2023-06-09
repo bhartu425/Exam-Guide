@@ -1,0 +1,47 @@
+{%extends 'base.html'%}
+{%block title%}question papers{%endblock%}
+{%block nav_content%}
+{%for i in data[0:1] %}
+<form class="form-inline my-2 my-lg-0 ml-auto" name='searchform' onsubmit="return validatesearchForm()" action="/stream/{{i.stream_name}}/{{i.semester}}" method='POST'>
+  <input class="form-control mr-sm-2" type="search" name="search_subject" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+{%endfor%}
+{%endblock%}
+{%block body%}
+<table class="table table-dark table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Sno</th>
+        <th scope="col">Subject</th>
+        <th scope="col">Year</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%if data is iterable and data is not string%}
+        {%for i in data%}
+      <tr>
+        <th scope="row">{{loop.index}}</th>
+        <td>{{i.subject_name}}</td>
+        <td>{{i.year}}</td>
+        <td><a href="{{url_for('static',filename='question_paper/'+i.file_name)}}" download><button type="button" class="btn btn-success">Download</button></a></td>
+      </tr>
+        {%endfor%}
+        {%else%}
+        <tr>
+          <th scope="row">{{loop.index}}</th>
+          <td>{{data.subject_name}}</td>
+          <td>{{data.year}}</td>
+          <td><a href="{{url_for('static',filename='question_paper/'+data.file_name)}}" download><button type="button" class="btn btn-success">Download</button></a></td>
+        </tr>
+        {%endif%}
+        {%if not data%}
+      
+        {%endif%}
+    </tbody>
+  </table>
+      {%if not data%}
+         <p class="bg-danger font-weight-bold text-white text-center py-3">NO DATA FOUND</p> 
+      {%endif%}
+{%endblock%}
